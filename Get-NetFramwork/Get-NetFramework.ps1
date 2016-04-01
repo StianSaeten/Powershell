@@ -3,17 +3,11 @@ function Get-NetFramework
 {
     <#
             .SYNOPSIS
-            Short Description
+            Get the .NET Framework version
             .DESCRIPTION
-            Detailed Description
+            Get the .NET Framework version
             .EXAMPLE
-            Get-NetFramework
-            explains how to use the command
-            can be multiple lines
-            .EXAMPLE
-            Get-NetFramework
-            another example
-            can have as many examples as you like
+            Get-NetFramework -ComputerName Server1, Server2
     #>
     [CmdletBinding()]
     param
