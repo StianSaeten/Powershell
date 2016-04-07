@@ -17,8 +17,11 @@
         $AzureRmSubscription
     )
     
-    Add-AzureRmAccount
+    Add-AzureRmAccount | Out-Null
     
     
-    Set-AzureRmContext -SubscriptionName $AzureRmSubscription
+    Set-AzureRmContext -SubscriptionName $AzureRmSubscription | Out-Null
+    
+    $connectedTo = (Get-AzureRmContext).Subscription | Format-List SubscriptionName | Out-String
+    Write-Host "You are now connected to: $connectedTo" -ForegroundColor Green
 }
