@@ -1,5 +1,4 @@
-﻿#requires -Version 2 -Modules AzureRM.Dns
-function Add-AzureDNS
+﻿function Add-AzureDNS
 {
     <#
             .SYNOPSIS
@@ -60,4 +59,3 @@ function Add-AzureDNS
     
     Set-AzureRmDnsRecordSet -RecordSet $rs -Verbose
 }
-

@@ -1,5 +1,4 @@
-﻿#requires -Version 2 -Modules AzureRM.profile
-function Connect-Azure
+﻿function Connect-Azure
 {
     <#
             .SYNOPSIS
@@ -23,4 +22,3 @@ function Connect-Azure
     
     Set-AzureRmContext -SubscriptionName $AzureRmSubscription
 }
-
