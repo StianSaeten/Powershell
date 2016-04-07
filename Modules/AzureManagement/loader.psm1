@@ -11,3 +11,5 @@
 . $PSScriptRoot\Add-AzureDNS.ps1
 . $PSScriptRoot\Connect-Azure.ps1
 . $PSScriptRoot\init.ps1
+. $PSScriptRoot\Remove-AzureDNS.ps1
+. $PSScriptRoot\Update-AzureDNS.ps1

@@ -1,14 +1,15 @@
-﻿function Add-AzureDNS
+﻿#requires -Version 2 -Modules AzureRM.Dns
+function Update-AzureDNS
 {
     <#
             .SYNOPSIS
-            Create record in Azure
+            Update record in Azure
             .DESCRIPTION
-            Create A record or CNAME record in Azure DNS
+            Update A record or CNAME record in Azure DNS
             .EXAMPLE
-            Add-AzureDNS -RecordType a -name www -Value 1.2.3.4 -ZoneName domain.com -ResouceGroupName MyRG -Verbose
+            Update-AzureDNS -RecordType a -name www -NewValue 1.2.3.4 -ZoneName domain.com -ResouceGroupName MyRG
             .EXAMPLE
-            Add-AzureDNS -RecordType cname -name sub -Value www.domain.com -ZoneName domain.com -ResouceGroupName MyRG
+            Update-AzureDNS -RecordType cname -name sub -NewValue www.domain.com -ZoneName domain.com -ResouceGroupName MyRG
     #>
     [CmdletBinding()]
     param
@@ -24,7 +25,7 @@
         
         [Parameter(Mandatory = $true, Position = 2, HelpMessage = 'IP or Alias')]
         [Object]
-        $Value,
+        $NewValue,
         
         [Parameter(Mandatory = $true, Position = 3)]
         [System.String]
@@ -40,18 +41,18 @@
     
     
     
-    $rs = New-AzureRmDnsRecordSet -Name $name -RecordType $RecordType.ToUpper() -Ttl 3600 -ZoneName $ZoneName -ResourceGroupName $ResouceGroupName 
+    $rs = Get-AzureRmDnsRecordSet -Name $name -RecordType $RecordType.ToUpper() -ZoneName $ZoneName -ResourceGroupName $ResouceGroupName 
     
     
     
     if ($RecordType -eq 'A')
     {
-        Add-AzureRmDnsRecordConfig -RecordSet $rs -Ipv4Address $Value
+        $rs.Records[0].Ipv4Address = $NewValue
     }
     
     elseif ($RecordType -eq 'CNAME')
     {
-        Add-AzureRmDnsRecordConfig -RecordSet $rs -Cname $Value
+        $rs.Records[0].CNAME = $NewValue
     }
     
     
@@ -59,3 +60,4 @@
     
     Set-AzureRmDnsRecordSet -RecordSet $rs
 }
+

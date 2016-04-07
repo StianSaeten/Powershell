@@ -57,5 +57,5 @@
     
     
     
-    Set-AzureRmDnsRecordSet -RecordSet $rs -Verbose
+    Set-AzureRmDnsRecordSet -RecordSet $rs
 }
