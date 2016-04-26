@@ -12,11 +12,11 @@ function Get-Uptime
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true, Position = 0, HelpMessage = 'Please add a help message here')]
+        [Parameter(Mandatory = $true, Position = 0)]
         [Object]
         $cred,
         
-        [Parameter(Mandatory = $true, Position = 1, HelpMessage = 'Please add a help message here')]
+        [Parameter(Mandatory = $true, Position = 1)]
         [Object]
         $ComputerName
     )
