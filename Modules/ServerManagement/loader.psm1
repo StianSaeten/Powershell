@@ -8,5 +8,7 @@
 
 # LOADING ALL FUNCTION DEFINITIONS:
 
+. $PSScriptRoot\Get-LastReboot.ps1
+. $PSScriptRoot\Get-NetFramework.ps1
 . $PSScriptRoot\Get-Uptime.ps1
 . $PSScriptRoot\init.ps1
