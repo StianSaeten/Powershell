@@ -44,6 +44,6 @@ function Get-NetFramework
                 }
             }
         )
-    } -ComputerName $ComputerName -Credential (Get-Credential) | Format-Table
+    } -ComputerName $ComputerName | Format-Table
 }
 

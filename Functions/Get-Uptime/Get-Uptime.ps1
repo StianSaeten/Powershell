@@ -12,16 +12,13 @@ function Get-Uptime
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [Object]
-        $cred,
         
-        [Parameter(Mandatory = $true, Position = 1)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [Object]
         $ComputerName
     )
     
-    $os = Get-WmiObject -Class win32_operatingsystem -ComputerName $ComputerName -Credential $cred -ErrorAction SilentlyContinue
+    $os = Get-WmiObject -Class win32_operatingsystem -ComputerName $ComputerName -ErrorAction SilentlyContinue
     if ($os.LastBootUpTime) 
     {
         $uptime = (Get-Date) - $os.ConvertToDateTime($os.LastBootUpTime)
