@@ -1,4 +1,4 @@
-﻿New-Cluster -Name S2D -Node nano-hc-01, nano-hc-02, nano-hc-03 -StaticAddress 10.0.10.100 -NoStorage
+﻿New-Cluster -Name S2D -Node nano1, nano-hc-02, nano-hc-03 -StaticAddress 10.0.10.100 -NoStorage
 
 Set-ClusterQuorum -Cluster S2D -FileShareWitness \\dc1\S2DHCWitness
 
