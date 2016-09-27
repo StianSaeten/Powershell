@@ -84,10 +84,10 @@
   
 
   
-  Write-Verbose ("Username will be: $username")
+  Write-Verbose -Message ("Username will be: $username")
   New-ADUser -SamAccountName $username -Name $fullName -Path $OU -UserPrincipalName ($username + '@montel.no') -GivenName $firstName -Surname $lastName -DisplayName $fullName -ScriptPath 'logonscript.vbs' -EmailAddress ($username + '@montel.no')
   
-  Write-Verbose 'Waiting 30 secounds to be sure that the account is ready'
+  Write-Verbose -Message 'Waiting 30 secounds to be sure that the account is ready'
   Start-Sleep -Seconds 30 -Verbose
   
   # Create email addresses
@@ -116,7 +116,5 @@
   }
   Set-ADUser -Identity $user.SamAccountName -Add @{
     ProxyAddresses = 'smtp:'+ $user.GivenName.replace(' ','.').Replace('æ', 'ae').Replace('ø', 'o').Replace('å','a').Replace('ä','a').ToLower() + '.' +   $user.Surname.Replace('æ', 'ae').Replace('ø', 'o').Replace('å','a').Replace('ä','a').ToLower() + '@montelnews.com'
-  } 
-  
-  
   }
+}
