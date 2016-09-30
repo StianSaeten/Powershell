@@ -99,3 +99,199 @@ Pop-Location
 
 
 # BOK : Windows Powershell Best Practices
+
+
+
+get-help * -Parameter computername | sort name | ft name, synopsis -AutoSize -Wrap
+
+# Record all input and output
+Start-Transcript
+Stop-Transcript
+
+
+
+$testwww11 = New-PSSession -ComputerName test-www11 -Credential montel\sa-stian
+Invoke-Command -Session $testwww11 -ScriptBlock {Get-CimInstance win32_bios}
+Invoke-Command -ComputerName mon-hv11, mon-hv12, mon-hv13 -ScriptBlock {Get-CimInstance win32_bios} -Credential montel\sa-stian
+
+Invoke-Command -ComputerName test-www11 -ScriptBlock {Get-Process | select -Last 2} -Credential montel\sa-stian
+
+
+# Do..While kjører frem til verdien er oppnådd
+# Do..Until kjører til og med når verdien er oppnådd
+
+$i = 0
+$caps = 65..91
+do
+{
+    [char]$caps[$i]
+    $i++
+} while ($i -lt 26)
+
+$i = 0
+$ary = 1..5
+do
+{
+    $ary[$i]
+    $i++
+} Until ($i -eq 5)
+
+
+
+# While
+# WhileDoesNotRUn.ps1
+$i = 1
+
+while ($i -eq 5)
+{
+    "Inside the while loop"
+}
+
+
+# For
+# DemoForLoop.ps1
+For($i = 0; $i -le 5; $i++)
+{
+    '$i equals ' + $i
+}
+# Eller
+$i = 0
+For(;$i -le 5; )
+{
+    "`$i is equal to $i"
+    $i++
+}
+
+#Endless loop
+$i = 0 
+for(;;)
+{
+    $i ; $i++
+    Start-Sleep -Seconds 1
+}
+
+#ForEach
+$ary = 1..5
+foreach($i in $ary)
+{
+    if($i -eq 3) { break }
+    $i
+}
+"Statment following foreach loop"
+
+
+
+$ary = 1..5
+foreach($i in $ary)
+{
+    if($i -eq 3) { exit }
+    $i
+}
+"Statment following foreach loop"
+
+
+# Unngå ELSEIF bruk SWITCH
+$a = 2,1,77
+Switch ($a)
+{
+    1 {Write-host "Vi går for nummer 1"}
+    2 {Write-host "Vi går for nummer 2"}
+    2 {Write-host "Vi går for nummer to"}
+    3 {'$a = 3'}
+    Default { 'unable to determine value of $a' }
+}
+"Statement after switch"
+
+
+# Functions
+Function Get-FreeDiskSpace($drive, $computer)
+{
+  $driveData = Get-WmiObject -Class win32_LogicalDisk -ComputerName $computer -Filter "Name = '$drive'"
+  
+  "$computer free disk space on drive $drive $("{0:n2}" -f ($driveData.FreeSpace/1MB)) MegaBytes"
+}
+
+Get-FreeDiskSpace -drive "c:" -computer localhost
+
+
+# V2 raskere
+Function Get-FreeDiskSpace($drive, $computer)
+{
+  $driveData = [wmi]"\\$computer\root\cimv2:Win32_logicalDisk.DeviceID='$drive'"
+  
+   "$computer free disk space on drive $drive $("{0:n2}" -f ($driveData.FreeSpace/1MB)) MegaBytes"
+}
+
+Get-FreeDiskSpace -drive "c:" -computer localhost
+
+
+
+
+# DemoTrapSystemException.ps1
+Function My-Test([int]$myinput)
+{
+  "It worked"  
+} # End my-test function
+# *** Entry Point to Script ***
+
+Trap [system.SystemException] { "error trapped" ; continue}
+My-Test -myinput "error"
+"After the error"
+
+
+
+
+# I funksjoner er kjøres BEGIN en gang, mens PROCESS kjøre for hvert item i pipeline
+
+
+
+# MessureAddOneFilter.ps1
+
+Filter AddOne
+{
+    "add one filter"
+    $_ + 1
+}
+
+Measure-Command {1..50000 | AddOne }
+
+# Adv.function
+Function my-function
+{
+    [cmdletbinding()]
+    Param()
+    Write-Verbose "Verbose stream"
+}
+
+my-function -Verbose
+
+
+# Adv.function med -whatif og -confirm
+Function my-function
+{
+    [cmdletbinding(SupportsShouldProcess=$true)]
+    Param($path)
+    md $path
+}
+
+my-function -path c:\test2 -WhatIf
+my-function -path c:\test2 -Confirm
+
+
+# Adv.function med med alltid confirm
+Function my-function
+{
+    [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact="high")]
+    Param($path)
+    md $path
+}
+
+
+# Adv.function sette default parameter
+Function my-function
+{
+    [cmdletbinding(DefaultParameterSetName="path")]
+    Param($path)
+    md $path
+    Write-Host $env:ALLUSERSPROFILE
+}
