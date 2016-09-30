@@ -1,14 +1,14 @@
 # Laste ned siste versjon av Powershell
 # https://www.microsoft.com/en-us/download/details.aspx?id=50395
 
-# kjøre Powershell kode fra CMD
+# kjï¿½re Powershell kode fra CMD
 Powershell (-noexit) -command {& Get-Process}
 
 
-# kjøre flere eksterne kommandoer i Powershell
+# kjï¿½re flere eksterne kommandoer i Powershell
 ipconfig;route print
 
-# Finne filversjon på kjørende programmer
+# Finne filversjon pï¿½ kjï¿½rende programmer
 Get-Process -Name explorer -FileVersionInfo
 ps explorer -FileVersionInfo
 
@@ -117,8 +117,8 @@ Invoke-Command -ComputerName mon-hv11, mon-hv12, mon-hv13 -ScriptBlock {Get-CimI
 Invoke-Command -ComputerName test-www11 -ScriptBlock {Get-Process | select -Last 2} -Credential montel\sa-stian
 
 
-# Do..While kjører frem til verdien er oppnådd
-# Do..Until kjører til og med når verdien er oppnådd
+# Do..While kjï¿½rer frem til verdien er oppnï¿½dd
+# Do..Until kjï¿½rer til og med nï¿½r verdien er oppnï¿½dd
 
 $i = 0
 $caps = 65..91
@@ -190,13 +190,13 @@ foreach($i in $ary)
 "Statment following foreach loop"
 
 
-# Unngå ELSEIF bruk SWITCH
+# Unngï¿½ ELSEIF bruk SWITCH
 $a = 2,1,77
 Switch ($a)
 {
-    1 {Write-host "Vi går for nummer 1"}
-    2 {Write-host "Vi går for nummer 2"}
-    2 {Write-host "Vi går for nummer to"}
+    1 {Write-host "Vi gï¿½r for nummer 1"}
+    2 {Write-host "Vi gï¿½r for nummer 2"}
+    2 {Write-host "Vi gï¿½r for nummer to"}
     3 {'$a = 3'}
     Default { 'unable to determine value of $a' }
 }
@@ -241,7 +241,7 @@ My-Test -myinput "error"
 
 
 
-# I funksjoner er kjøres BEGIN en gang, mens PROCESS kjøre for hvert item i pipeline
+# I funksjoner er kjï¿½res BEGIN en gang, mens PROCESS kjï¿½re for hvert item i pipeline
 
 
 
@@ -295,3 +295,6 @@ Function my-function
     md $path
     Write-Host $env:ALLUSERSPROFILE
 }
+
+
+$env:PSModulePath.Split(";") 
