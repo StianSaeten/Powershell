@@ -297,4 +297,4 @@ Function my-function
 }
 
 
-$env:PSModulePath.Split(";") 
+$env:PSModulePath.Split(";\") 
