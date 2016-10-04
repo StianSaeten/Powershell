@@ -297,4 +297,29 @@ Function my-function
 }
 
 
-$env:PSModulePath.Split(";\") 
+$env:PSModulePath.Split(";") 
+
+
+#Get-MyModule.ps1
+Function Get-MyModule
+    {
+        Param([string]$name)
+        if(-not(Get-Module -name $name))
+            {
+                if(Get-Module -ListAvailable | 
+                    Where-Object {$_.name -eq $name})
+                    {
+                        Import-Module -Name $name 
+                        $true
+                    } #End if module available then import
+                else {$false} #module not available
+            } #End if not module
+        else {$true} #module already loaded
+    } #end function get-MyModule
+
+If(Get-MyModule -name "ServerManagement") {
+        #My fancy code
+    }
+    else {
+        "ServerManager module is not installed on this system." ;exit
+    }
