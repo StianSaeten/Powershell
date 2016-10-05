@@ -11,3 +11,4 @@ $dteDiff = New-TimeSpan $dteStart $dteEnd
 "`n"
 Write-Host "It took " $dteDiff.TotalSeconds " Secounds for this script to complete." -ForegroundColor Green
 
+
