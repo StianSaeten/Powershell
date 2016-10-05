@@ -323,3 +323,8 @@ If(Get-MyModule -name "ServerManagement") {
     else {
         "ServerManager module is not installed on this system." ;exit
     }
+
+
+
+    #Benytt dymaiske WMI classes til å hente ut live data
+    Get-CimClass *bios* -QualifierName dynamic
