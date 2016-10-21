@@ -1,6 +1,6 @@
 $strClass = "User"
-$strOUName = "CN=MyTestUser"
+$strName = "CN=MyTestUser"
 $objADSI = [ADSI]"LDAP://OU=MyTestOU,DC=Montel,DC=local"
-$objUser = $objADSI.Create($strClass, $strOUName)
+$objUser = $objADSI.Create($strClass, $strName)
 $objUser.put("sAMAccountName", "MyTestUser")
 $objUser.setInfo()
