@@ -38,3 +38,4 @@ Else
  Wscript.Echo "Check the Source Path or Make sure font is located inside source folder"
 
 End If
+
